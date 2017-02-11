@@ -36,13 +36,6 @@ load the script, the rest of the instructions are in the Archer Channel.
 2.2.2 -- Fixed a problem in the EXP Module.
 2.2.3 -- Added the ComboPS and ComboP, which is the Prestige 3 combo with and without sd respectivelly.
 2.2.4 -- Changed some things in Anti PARA module to Use if X prestige.
-
-Buyers;
-
-2.0.4 -- Skip -- Asked for "ComboSD" module, given AlarmL and Fix for ComboAOE for free.
-2.1.9 -- Saxton -- Send the P3 version..
-2.2.2 -- Finkelz -- Send the P3 version.
-2.2.2 -- ANON -- Send the P3 version.
 ]]
 
 
