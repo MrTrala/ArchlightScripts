@@ -1,6 +1,5 @@
 --[[
 	Combo Archer for ArchlightOnline
-	(Private Version)
 	By Mr Trala
 	
 Thanks to:
