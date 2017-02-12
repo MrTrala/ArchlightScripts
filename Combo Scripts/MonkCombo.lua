@@ -24,7 +24,7 @@ kick = {} -- HOW-TO; Put 1, 2 and 3 to the 3 kicks you want to use YOU'RE NOT go
 kick[1] = {Words = "Ultimate Energy Kick", Exaus ="exori max vis"}
 kick[2] = {Words = "Ultimate Ice kick", Exaus ="exori max frigo"}
 kick[3] = {Words = "Ultimate Earth Kick", Exaus ="exori max tera"}
-kick[4] = {Words = "Ultimate Death Kick", Exaus ="exori max mort"}
+kick[4] = {Words = "Ultimate Death Kick", Exaus ="exori max vis"}
 kick[5] = {Words = "Ultimate Fire Kick", Exaus ="exori max flam"}
 
 
