@@ -4,21 +4,46 @@
 ]]
 
 config = {
+	Level = 500, -- If you don't put your level there could be problems with the Healer.
 	ManaRune = 11607, -- ID of your manarune.
 	ManaCAST = 80, -- x% mana to use manarune.
 	SDID = 3155, -- ID of your sd.
 	Soul = true, -- True if you want to use your soul rune between your kicks, false if not.
 	
--- Healing Config
-    Quick = 90, -- x% health to use Quick Prayer.
-    Pray = 80, -- x% health to use Prayer.
-    BlessS = 50, -- x% health to use Strong Healing Spring.
-	StrongB = 40, -- x% health to use Healing Spring.
-	
 -- Prestige Config
-
 	PrestigeNum = 0, -- Put your prestige number here.
 }
+
+-- This config aply only if you are using a character of lvl 90+
+healers = {}
+healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 100}
+healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 100}
+healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
+healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
+
+-- Don't touch anything below this line if you don't know what are you doing.
+spells = {
+	-- Exhausteds
+	StrongFPEX = 'exura gran ico', -- Strong Flurry of Punches
+	FlurryPEX = 'exori ico', -- Flurry of Punches
+	MinFPEX = 'exori gran ico', -- Min Flurry of Punches
+	KnockEX = 'exevo vis hur', -- Knockout
+	
+	-- Words
+	StrongFPWD = 'Strong Flurry of Punches', -- lvl 250
+	FlurryPWD = 'Flurry of Punches', -- lvl 80
+	MinFPWD = 'Min Flurry of Punches', -- lvl 8
+	KnockWD = 'Knockout Punch', -- lvl 650
+}
+
+scrolls = {}
+scrolls[1] = {ItemID = 8764} -- 10% Scroll.
+scrolls[2] = {ItemID = 3020} -- 100% Boost.
+scrolls[3] = {ItemID = 19109} -- EXP Elixir.
+scrolls[4] = {ItemID = 5953} -- Marijuana.
+scrolls[5] = {ItemID = 3232} -- 30% Scroll.
+scrolls[6] = {ItemID = 8176} -- 50% Scroll.
+
 
 --[[
 	Change Log;
@@ -39,40 +64,6 @@ config = {
 2.0.1 -- Added the ANTI Para Module; Added the Prestige config -- You still cannot use this script if you are Prestige > 3.
 2.0.2 -- ReWorked the healer completely.
 ]]
-
-
--- Don't touch anything below this line if you don't know what are you doing.
-spells = {
-	-- Exhausteds
-	StrongFPEX = 'exura gran ico', -- Strong Flurry of Punches
-	FlurryPEX = 'exori ico', -- Flurry of Punches
-	MinFPEX = 'exori gran ico', -- Min Flurry of Punches
-	KnockEX = 'exevo vis hur', -- Knockout
-	
-	-- Words
-	StrongFPWD = 'Strong Flurry of Punches', -- lvl 250
-	FlurryPWD = 'Flurry of Punches', -- lvl 80
-	MinFPWD = 'Min Flurry of Punches', -- lvl 8
-	KnockWD = 'Knockout Punch', -- lvl 650
-}
-
-
-
--- This config aply only if you are using a character of lvl 90+
-healers = {}
-healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 100}
-healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 100}
-healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
-healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
-
-scrolls = {}
-scrolls[1] = {ItemID = 8764} -- 10% Scroll.
-scrolls[2] = {ItemID = 3020} -- 100% Boost.
-scrolls[3] = {ItemID = 19109} -- EXP Elixir.
-scrolls[4] = {ItemID = 5953} -- Marijuana.
-scrolls[5] = {ItemID = 3232} -- 30% Scroll.
-scrolls[6] = {ItemID = 8176} -- 50% Scroll.
-
 names =
 {
 {Name = Self.Name()}
