@@ -4,7 +4,6 @@
 ]]
 
 config = {
-	Level = 500, -- If you don't put your level there could be problems with the Healer.
 	ManaRune = 11607, -- ID of your manarune.
 	ManaCAST = 80, -- x% mana to use manarune.
 	SDID = 3155, -- ID of your sd.
