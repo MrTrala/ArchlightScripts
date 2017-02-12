@@ -10,13 +10,13 @@ config = {
 	Soul = true, -- True if you want to use your soul rune between your kicks, false if not.
 	
 -- Prestige Config
-	PrestigeNum = 0, -- Put your prestige number here.
+	Prestige = 0, -- Put your prestige number here.
 }
 
 -- This config aply only if you are using a character of lvl 90+
 healers = {}
-healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 100}
-healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 100}
+healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 91}
+healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 91}
 healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
 healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
 
@@ -24,7 +24,7 @@ kick = {} -- HOW-TO; Put 1, 2 and 3 to the 3 kicks you want to use YOU'RE NOT go
 kick[1] = {Words = "Ultimate Energy Kick", Exaus ="exori max vis"}
 kick[2] = {Words = "Ultimate Ice kick", Exaus ="exori max frigo"}
 kick[3] = {Words = "Ultimate Earth Kick", Exaus ="exori max tera"}
-kick[4] = {Words = "Ultimate Death Kick", Exaus ="exori max vis"}
+kick[4] = {Words = "Ultimate Death Kick", Exaus ="exori max mort"}
 kick[5] = {Words = "Ultimate Fire Kick", Exaus ="exori max flam"}
 
 
@@ -342,10 +342,10 @@ end
 
 
 function Paraz()
-	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.PrestigeNum >= 2	then
+	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.Prestige >= 2	then
 		Self.Say("Improved Utani Hur")
 		
-	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and PrestigeNum <= 1	then
+	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and x.Prestige <= 1	then
 		Self.Say("Utani Hur")
 	end
 end
