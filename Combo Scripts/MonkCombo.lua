@@ -7,18 +7,20 @@ config = {
 	ManaRune = 11607, -- ID of your manarune.
 	ManaCAST = 80, -- x% mana to use manarune.
 	SDID = 3154, -- ID of your sd.
-	Soul = true, -- True if you want to use your soul rune between your kicks, false if not.
+	Soul = false, -- True if you want to use your soul rune between your kicks, false if not.
 	
 -- Prestige Config
 	Prestige = 0, -- Put your prestige number here.
+	
+-- EXP Module config.
+	ExpUS = 120, -- Time (in seconds) to Re-Use your scrolls (EXP MODULE).
 }
 
 -- This config aply only if you are using a character of lvl 90+
 healers = {}
 healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 91}
 healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 91}
-healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
-healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
+healers[3] = {Words = "exura san", Exaus = "exura san", Health = 90}
 
 kick = {} -- HOW-TO; Put 1, 2 and 3 to the 3 kicks you want to use YOU'RE NOT going to use kick 4 and 5, so make sure you config it RIGHT.
 kick[1] = {Words = "Ultimate Energy Kick", Exaus ="exori max vis"}
@@ -62,7 +64,7 @@ scrolls[6] = {ItemID = 8176} -- 50% Scroll.
 1.0.4 -- Added Focus module.
 1.0.5 -- Fixed an error in the healer module.
 1.0.6 -- Added a basic sd target module. -- REMOVED.
-1.0.7 -- Added ComboN module. -- Realeased bcz alot of ppl is asking for it.
+1.0.7 -- Added ComboN module. -- Realeased bcz alot of ppl is asking for it. -- Module Removed.
 1.0.8 -- Fixed a bug in the healer (Thx to Erma for reporting it).
 1.0.9 -- Fixed a bug in the healer (Thx Spheon for reporting it).
 1.1.0 -- Added an Anty Paralz.
@@ -73,12 +75,13 @@ scrolls[6] = {ItemID = 8176} -- 50% Scroll.
 2.0.3 -- Added ComboSD, same as Combo but this one combo with SD.
 2.0.4 -- Added Kicks module, it cycles between 3 kicks (read instructions) - IDEA; Destripador.
 2.0.5 -- Added Auto BP Timer.
+2.0.6 -- Fixed a minor error in EXP Module. -- Thanks to Xemos for the report.
 ]]
 names =
 {
 {Name = Self.Name()}
 }
-version = '2.0.5(FV)'
+version = '2.0.6(FV)'
 for _, name in ipairs(names) do
 	if Self.Name() == name.Name then
 		print('Welcome to the Monk Combo Script '..name.Name..'.\n'..
@@ -360,7 +363,7 @@ Module('EXP', function(Mod)
 			Healer()
 		end
 	end
-Mod:Delay((config.ExpUS * 1000), (config.ExpUS * 1000) + 200)
+Mod:Delay((x.ExpUS * 1000), (x.ExpUS * 1000) + 200)
 end, false)
 
 function BPS()
