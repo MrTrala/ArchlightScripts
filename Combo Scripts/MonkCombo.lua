@@ -21,11 +21,11 @@ healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
 healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
 
 kick = {} -- HOW-TO; Put 1, 2 and 3 to the 3 kicks you want to use YOU'RE NOT going to use kick 4 and 5, so make sure you config it RIGHT.
-kick[1] = {Words = "Strong Death Kick", Exaus ="exori gran mort"}
-kick[2] = {Words = "Strong Ice kick", Exaus ="exori gran frigo"}
-kick[3] = {Words = "Strong Earth Kick", Exaus ="exori gran tera"}
-kick[4] = {Words = "Strong Energy Kick", Exaus ="exori gran vis"}
-kick[5] = {Words = "Strong Fire Kick", Exaus ="exori gran flam"}
+kick[1] = {Words = "Ultimate Death Kick", Exaus ="exori max mort"}
+kick[2] = {Words = "Ultimate Ice kick", Exaus ="exori max frigo"}
+kick[3] = {Words = "Ultimate Earth Kick", Exaus ="exori max tera"}
+kick[4] = {Words = "Ultimate Energy Kick", Exaus ="exori max vis"}
+kick[5] = {Words = "Ultimate Fire Kick", Exaus ="exori max flam"}
 
 
 -- Don't touch anything below this line if you don't know what are you doing.
