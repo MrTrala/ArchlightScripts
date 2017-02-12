@@ -6,7 +6,7 @@
 config = {
 	ManaRune = 11607, -- ID of your manarune.
 	ManaCAST = 80, -- x% mana to use manarune.
-	SDID = 3155, -- ID of your sd.
+	SDID = 3154, -- ID of your sd.
 	Soul = true, -- True if you want to use your soul rune between your kicks, false if not.
 	
 -- Prestige Config
@@ -19,6 +19,14 @@ healers[1] = {Words = "Strong Healing Spring", Exaus = "utura", Health = 100}
 healers[2] = {Words = "Healing Spring", Exaus = "exura gran mas res", Health = 100}
 healers[3] = {Words = "Prayer", Exaus = "exura ico", Health = 70}
 healers[4] = {Words = "exura san", Exaus = "exura san", Health = 90}
+
+kick = {} -- HOW-TO; Put 1, 2 and 3 to the 3 kicks you want to use YOU'RE NOT going to use kick 4 and 5, so make sure you config it RIGHT.
+kick[1] = {Words = "Strong Death Kick", Exaus ="exori gran mort"}
+kick[2] = {Words = "Strong Ice kick", Exaus ="exori gran frigo"}
+kick[3] = {Words = "Strong Earth Kick", Exaus ="exori gran tera"}
+kick[4] = {Words = "Strong Energy Kick", Exaus ="exori gran vis"}
+kick[5] = {Words = "Strong Fire Kick", Exaus ="exori gran flam"}
+
 
 -- Don't touch anything below this line if you don't know what are you doing.
 spells = {
@@ -53,7 +61,7 @@ scrolls[6] = {ItemID = 8176} -- 50% Scroll.
 1.0.3 -- Made changes to the healer.
 1.0.4 -- Added Focus module.
 1.0.5 -- Fixed an error in the healer module.
-1.0.6 -- Added a basic sd target module.
+1.0.6 -- Added a basic sd target module. -- REMOVED.
 1.0.7 -- Added ComboN module. -- Realeased bcz alot of ppl is asking for it.
 1.0.8 -- Fixed a bug in the healer (Thx to Erma for reporting it).
 1.0.9 -- Fixed a bug in the healer (Thx Spheon for reporting it).
@@ -62,12 +70,15 @@ scrolls[6] = {ItemID = 8176} -- 50% Scroll.
 2.0.0 -- Added the Soul Rune, ReWork on the Combo module, Fixed some shit in the Focus; Added EXP USER Module.
 2.0.1 -- Added the ANTI Para Module; Added the Prestige config -- You still cannot use this script if you are Prestige > 3.
 2.0.2 -- ReWorked the healer completely.
+2.0.3 -- Added ComboSD, same as Combo but this one combo with SD.
+2.0.4 -- Added Kicks module, it cycles between 3 kicks (read instructions) - IDEA; Destripador.
+2.0.5 -- Added Auto BP Timer.
 ]]
 names =
 {
 {Name = Self.Name()}
 }
-version = '2.0.2(FV)'
+version = '2.0.5(FV)'
 for _, name in ipairs(names) do
 	if Self.Name() == name.Name then
 		print('Welcome to the Monk Combo Script '..name.Name..'.\n'..
@@ -89,6 +100,9 @@ function onSpeak(channel, message)
 	if (message == '/list') then
 		channel:SendYellowMessage('List of Modules', '\n'..
 		'Combo -- THE combo for Monks, no need to check lvl, just turn it on.\n'..
+		'ComboSD -- Same with Combo but it combo an SD.\n'..
+		'Exp -- a module to use your exp scrolls (all of them) write "/list exp" for more info.\n'..
+		'BPS -- Auto opens the main BP so you can keep looting after a kick (Enabled by Default, to stop it write /list BPS).\n'..
 		'Healer -- This is your healer module (Enabled by default).\n'..
 		'Focus -- A module to keep using Focused Art.\n'..
 		'Train -- Use this one to start the training module (exura san + utana vid).\n')
@@ -126,6 +140,30 @@ function onSpeak(channel, message)
 	elseif (message == '/stop EXP') or (message == '/stop exp') then
 		Module.Stop('EXP')
 		channel:SendRedMessage('Mr Trala', 'The module with the name "EXP" has been stopped.')
+		
+	elseif (message == '/start Kicks') or (message == 'Kicks') or (message == 'kicks') then
+		Module.Start('KicksIN')
+		channel:SendYellowMessage('Mr Trala', 'The module with the name "Kicks" has been started.')
+		
+	elseif (message == '/stop Kicks') or (message == '/stop Kicks') then
+		Module.Stop('KicksIN')
+		channel:SendRedMessage('Mr Trala', 'The module with the name "Kicks" has been stopped.')
+		
+	elseif (message == '/start ComboSD') or (message == 'ComboSD') or (message == 'combosd') then
+		Module.Start('ComboSD')
+		channel:SendYellowMessage('Mr Trala', 'The module with the name "ComboSD" has been started.')
+		
+	elseif (message == '/stop ComboSD') or (message == '/stop combosd') then
+		Module.Stop('ComboSD')
+		channel:SendRedMessage('Mr Trala', 'The module with the name "ComboSD" has been stopped.')
+
+	elseif (message == '/list exp') then
+		channel:SendOrangeMessage('Mr Trala', 'The module will try to use your exp scroll only IF they are in an opened backpack, so\n'..
+		'If you have 100% booster but you DONT want to use it, leave it in a closed BP, otherwise it will try to use it.\n')
+	
+	elseif (message == '/list BPS') or (message == '/list bps') then
+		channel:SendRedMessage('Mr Trala', 'To stop this module you need to search in the script the followin: registerEventListener(TIMER_TICK, "BPS")\n'..
+		'Then delete it, save and reaload the script.\n')
 	end
 end
 
@@ -156,6 +194,7 @@ customChannel:SendOrangeMessage('Instructions', '\n'..
 	
 -- Functions
 exausSoul = 0
+exausSD = 0
 function Soul()
 	if x.Soul == true then
 	local SoulShooter = os.time() - exausSoul -- first timer to shot first spell.
@@ -165,6 +204,31 @@ function Soul()
 			wait(200)
 			Self.UseItemWithTarget(3167)
 			exausSoul = os.time()
+		end
+	end
+end
+
+function SD()
+local SDShooter = os.time() - exausSoul -- first timer to shot first SD.
+	if SDShooter >= math.random(2.1, 2.2) then
+		wait(200)
+		Self.UseItemWithTarget(x.SDID)
+		wait(200)
+		Self.UseItemWithTarget(x.SDID)
+		exausSD = os.time()
+	end
+end
+
+function KicksIN()
+	for i = 1, #kick do
+local s = kick[i]
+local c = Creature.GetByID(Self.TargetID())
+		if c:isValid() and c:isAlive() and c:isTarget() and c:DistanceFromSelf() == 1 then
+			if Self.GetSpellCooldown(s.Exaus) == 0 then
+				Soul()
+				SD()
+				Self.Say(s.Words)
+			end
 		end
 	end
 end
@@ -253,12 +317,29 @@ local c = Creature.GetByID(Self.TargetID())
 	end
 end
 
-function SDT()
+function ComboSD()
+local lvl = Self.Level()
 local c = Creature.GetByID(Self.TargetID())
-	if c:isValid() and c:isAlive() and c:DistanceFromSelf() >= 2 then
-		Self.UseItemWithTarget(x.SDID)
+	if c:isValid() and c:isAlive() and c:isTarget() and c:DistanceFromSelf() == 1 then
+		if lvl >= 8 and lvl <= 79 then
+			SD()
+			ComboLVLE() -- 8-79
+			
+		elseif lvl >= 80 and lvl <= 249 then
+			SD()
+			ComboLOWS() -- 80-249
+			
+		elseif lvl >= 250 and lvl <= 649 then
+			SD()
+			ComboLOW() -- 250-649
+			
+		elseif lvl >= 650 then
+			SD()
+			ComboNWS()
+		end
 	end
 end
+
 
 function Paraz()
 	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.PrestigeNum >= 2	then
@@ -292,6 +373,8 @@ end
 registerEventListener(TIMER_TICK, "BPS")
 registerEventListener(TIMER_TICK, "Paraz")
 Module('Combo', Combo, false)
+Module('ComboSD', ComboSD, false)
+Module('KicksIN', KicksIN, false)
 Module('SDT', SDT, false)
 
 function FocusT()
