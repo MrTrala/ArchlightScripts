@@ -49,13 +49,14 @@ scrolls[6] = {ItemID = 8176} -- 50% Scroll.
 --[[
 	Change Log;
 
-1.0 -- First stable version.
+1.0 -- First stable version
+1.0.1 -- Removed useless modules for zerks.
 ]]
 names =
 {
 {Name = Self.Name()}
 }
-version = '1.0.0(FV)'
+version = '1.0.1(FV)'
 for _, name in ipairs(names) do
 	if Self.Name() == name.Name then
 		print('Welcome to the Berserker Combo Script '..name.Name..'.\n'..
@@ -77,11 +78,9 @@ function onSpeak(channel, message)
 	if (message == '/list') then
 		channel:SendYellowMessage('List of Modules', '\n'..
 		'Combo -- THE combo for Berserkers, no need to check lvl, just turn it on.\n'..
-		'ComboSD -- Same with Combo but it combo an SD.\n'..
 		'Exp -- a module to use your exp scrolls (all of them) write "/list exp" for more info.\n'..
 		'BPS -- Auto opens the main BP so you can keep looting after a kick (Enabled by Default, to stop it write /list BPS).\n'..
 		'Healer -- This is your healer module (Enabled by default).\n'..
-		'Focus -- A module to keep using Focused Art.\n'..
 		'Train -- Use this one to start the training module (exura san + utana vid).\n')
 	end
 	
@@ -303,30 +302,6 @@ local c = Creature.GetByID(Self.TargetID())
 	end
 end
 
-function ComboSD()
-local lvl = Self.Level()
-local c = Creature.GetByID(Self.TargetID())
-	if c:isValid() and c:isAlive() and c:isTarget() and c:DistanceFromSelf() == 1 then
-		if lvl >= 8 and lvl <= 79 then
-			SD()
-			ComboLVLE() -- 8-79
-			
-		elseif lvl >= 80 and lvl <= 249 then
-			SD()
-			ComboLOWS() -- 80-249
-			
-		elseif lvl >= 250 and lvl <= 649 then
-			SD()
-			ComboLOW() -- 250-649
-			
-		elseif lvl >= 650 then
-			SD()
-			ComboNWS()
-		end
-	end
-end
-
-
 function Paraz()
 	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.Prestige >= 2	then
 		Self.Say("Improved Utani Hur")
@@ -359,7 +334,6 @@ end
 registerEventListener(TIMER_TICK, "BPS")
 registerEventListener(TIMER_TICK, "Paraz")
 Module('Combo', Combo, false)
-Module('ComboSD', ComboSD, false)
 Module('SDT', SDT, false)
 
 Module.New('LifeSteal', function(Mod)
