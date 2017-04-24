@@ -36,6 +36,7 @@ load the script, the rest of the instructions are in the Archer Channel.
 2.2.2 -- Fixed a problem in the EXP Module.
 2.2.3 -- Added the ComboPS and ComboP, which is the Prestige 3 combo with and without sd respectivelly.
 2.2.4 -- Changed some things in Anti PARA module to Use if X prestige.
+2.2.5 -- Fixed Life Steal no more available for archers(changed for Archers Grace)
 ]]
 
 
@@ -562,9 +563,9 @@ function Paraz()
 end
 
 function LifeSteal()
-local exaus = 'exura gran ico'
-		if Self.GetSpellCooldown(exaus) == 0 then
-			Self.Cast('Life Steal')
+local exaus = 'exura sio'
+		if Self.GetSpellCooldown(exaus) == 0 and Self.Health() <= 40 then
+			Self.Cast('Archers Grace')
 			Manarune2()
 		end
 end
