@@ -36,7 +36,7 @@ load the script, the rest of the instructions are in the Archer Channel.
 2.2.2 -- Fixed a problem in the EXP Module.
 2.2.3 -- Added the ComboPS and ComboP, which is the Prestige 3 combo with and without sd respectivelly.
 2.2.4 -- Changed some things in Anti PARA module to Use if X prestige.
-2.2.5 -- Fixed Life Steal no more available for archers(changed for Archers Grace)
+2.2.5 -- Fixed Life Steal no more available for archers(changed for Archers Grace) + cure paral fixed
 ]]
 
 
@@ -559,10 +559,10 @@ local Op = Container(0)
 end
 
 function Paraz()
-	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.PrestigeNum >= 2	then
+	if Self.isParalyzed() == true and Self.Mana() >= 5 and config.PrestigeNum >= 2	then
 		Self.Say("Improved Utani Hur")
 		
-	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and PrestigeNum <= 1	then
+	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and config.PrestigeNum <= 1 then
 		Self.Say("Utani Hur")
 	end
 end
