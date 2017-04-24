@@ -72,6 +72,7 @@ config = {
 
 spells = {
 	-- Exaus
+	ArchGraEX = 'exura sio', -- Archers Grace
 	FocusedEX = 'exevo gran mas flam', -- Focused shot
 	CannoEX = 'exevo vis hur', -- Energy Cannon
 	WavesEX = 'exevo dis flam hur', -- Sprays Exaus
@@ -497,7 +498,11 @@ end
 function Manarune2()
 	if Self.Health() <= config.HealCAST then
 		Self.UseItem(config.ManaRune)
-		Self.Say('exura san')
+		if Self.GetSpellCooldown(spells.ArchGraEX) == 0 and (Self.Level() >= 250 or config.Prestige > 0) and Self.Health() < 80 then
+			Self.Say('Archers Grace')
+		else 
+			Self.Say('exura san')
+		end
 		wait(200, 400)
 	end
 	
@@ -562,15 +567,6 @@ function Paraz()
 	end
 end
 
-function LifeSteal()
-local exaus = 'exura sio'
-		if Self.GetSpellCooldown(exaus) == 0 and Self.Health() <= 40 then
-			Self.Cast('Archers Grace')
-			Manarune2()
-		end
-end
-
-registerEventListener(TIMER_TICK, "LifeSteal")
 registerEventListener(TIMER_TICK, "Paraz")
 registerEventListener(TIMER_TICK, "BPS")
 Module('Combo', Combo, false)
@@ -602,7 +598,11 @@ end, true)
 Module('Manarune', function(mod)
 		if Self.Health() <= config.HealCAST then
 			Self.UseItem(config.ManaRune)
-			Self.Say('exura san')
+			if Self.GetSpellCooldown(spells.ArchGraEX) == 0 and (Self.Level() >= 250 or config.Prestige > 0) and Self.Health() < 80 then
+				Self.Say('Archers Grace')
+			else
+				Self.Say('exura san')
+			end
 			wait(200, 400)
 		end
 		
