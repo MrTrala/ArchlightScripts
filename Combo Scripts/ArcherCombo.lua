@@ -36,6 +36,7 @@ load the script, the rest of the instructions are in the Archer Channel.
 2.2.2 -- Fixed a problem in the EXP Module.
 2.2.3 -- Added the ComboPS and ComboP, which is the Prestige 3 combo with and without sd respectivelly.
 2.2.4 -- Changed some things in Anti PARA module to Use if X prestige.
+2.2.5 -- Fixed Life Steal no more available for archers(changed for Archers Grace) + cure paral fixed
 ]]
 
 
@@ -71,6 +72,7 @@ config = {
 
 spells = {
 	-- Exaus
+	ArchGraEX = 'exura sio', -- Archers Grace
 	FocusedEX = 'exevo gran mas flam', -- Focused shot
 	CannoEX = 'exevo vis hur', -- Energy Cannon
 	WavesEX = 'exevo dis flam hur', -- Sprays Exaus
@@ -496,7 +498,11 @@ end
 function Manarune2()
 	if Self.Health() <= config.HealCAST then
 		Self.UseItem(config.ManaRune)
-		Self.Say('exura san')
+		if Self.GetSpellCooldown(spells.ArchGraEX) == 0 and (Self.Level() >= 250 or config.Prestige > 0) and Self.Health() < 80 then
+			Self.Say('Archers Grace')
+		else 
+			Self.Say('exura san')
+		end
 		wait(200, 400)
 	end
 	
@@ -553,23 +559,14 @@ local Op = Container(0)
 end
 
 function Paraz()
-	if Self.isParalyzed() == true and Self.Mana() >= 5 and x.PrestigeNum >= 2	then
+	if Self.isParalyzed() == true and Self.Mana() >= 5 and config.PrestigeNum >= 2	then
 		Self.Say("Improved Utani Hur")
 		
-	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and PrestigeNum <= 1	then
+	elseif Self.isParalyzed() == true and Self.Mana() >= 5 and config.PrestigeNum <= 1 then
 		Self.Say("Utani Hur")
 	end
 end
 
-function LifeSteal()
-local exaus = 'exura gran ico'
-		if Self.GetSpellCooldown(exaus) == 0 then
-			Self.Cast('Life Steal')
-			Manarune2()
-		end
-end
-
-registerEventListener(TIMER_TICK, "LifeSteal")
 registerEventListener(TIMER_TICK, "Paraz")
 registerEventListener(TIMER_TICK, "BPS")
 Module('Combo', Combo, false)
@@ -601,7 +598,11 @@ end, true)
 Module('Manarune', function(mod)
 		if Self.Health() <= config.HealCAST then
 			Self.UseItem(config.ManaRune)
-			Self.Say('exura san')
+			if Self.GetSpellCooldown(spells.ArchGraEX) == 0 and (Self.Level() >= 250 or config.Prestige > 0) and Self.Health() < 80 then
+				Self.Say('Archers Grace')
+			else
+				Self.Say('exura san')
+			end
 			wait(200, 400)
 		end
 		
