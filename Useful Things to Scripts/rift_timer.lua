@@ -3,15 +3,20 @@ local Hud_Clocks_Offset_X = -35
  
  
 --init clock
-local riftHoursLeft = 99
+local riftHoursLeft = 0
 local riftMinutesLeft = 99
 local nextRift = 99
 --Get Rift Timer regex
 GenericTextMessageProxy.OnReceive("RiftTimeReader2", function (_, speaker, level, text)
-if string.match(speaker,'Time left to next rift') ~= nil then
-riftHoursLeft = string.match(speaker,'%: (.-) h')
-riftMinutesLeft = string.match(speaker,', (.-) m')
-nextRift = tonumber((tonumber(riftHoursLeft)*60*60)+(tonumber(riftMinutesLeft)*60))+os.time()
+if string.match(speaker,'Time left to next rift: (.-) h') ~= nil then
+	--print("GODZINY LEFT")
+	riftHoursLeft = string.match(speaker,'%: (.-) h')
+	riftMinutesLeft = string.match(speaker,', (.-) m')
+	nextRift = tonumber((tonumber(riftHoursLeft)*60*60)+(tonumber(riftMinutesLeft)*60))+os.time()
+elseif string.match(speaker,'Time left to next rift: (.-) m') ~= nil then
+	--print("MUNUTY LEFT") 
+	riftMinutesLeft = string.match(speaker,'%: (.-) m')
+	nextRift = tonumber((tonumber(riftHoursLeft)*60*60)+(tonumber(riftMinutesLeft)*60))+os.time()
 end
 end)
 wait(200)
